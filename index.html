@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puppy Rental</title>
-    <link rel="stylesheet" href="/public/css/spinner.css">
+    <link rel="stylesheet" href="./public/css/spinner.css">
     <script>
         function hideLoadingScreen() {
             const loadingScreen = document.getElementById('loading-screen');
@@ -26,10 +26,10 @@
     <!-- Three.js Library and GLTFLoader for loading GLTF files -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.125.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.125.2/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="/public/js/navbar.js" defer></script>
-    <script src="/public/js/walking-sound.js"></script>
-    <script src="/public/js/click-sound.js"></script>
-    <script src="/public/js/background-sound.js"></script>
+    <script src="./public/js/navbar.js" defer></script>
+    <script src="./public/js/walking-sound.js"></script>
+    <script src="./public/js/click-sound.js"></script>
+    <script src="./public/js/background-sound.js"></script>
     <style>
         body, html { margin: 0; padding: 0; }
         #info { position: absolute; top: 10px; left: 10px; color: white; z-index: 10; }
@@ -159,7 +159,7 @@
             position: { x: 0, y: 3.8, z: 13 }, //this is for the container to work!!
             moved: false,
             mixer: null,
-            animationPath: '/public/bengalcat.glb',
+            animationPath: './public/bengalcat.glb',
             scale: 5,
             url: 'http://localhost:8080/cat'
         },
@@ -177,7 +177,7 @@
             position: { x: -1, y: 28, z: 7 },
             moved: false,
             mixer: null,
-            animationPath: '/public/ductbone.glb',
+            animationPath: './public/ductbone.glb',
             scale: 1,  // Adjust scale as needed
             url: 'http://localhost:8080/game'  // Duct bone model's iframe URL
         },
@@ -189,7 +189,7 @@
             position: { x: 3.75, y: 0, z: -35.2 },
             moved: false,
             mixer: null,
-            animationPath: '/public/degu.glb',
+            animationPath: './public/degu.glb',
             scale: 6,
             url: 'http://localhost:8080/rodent'
         },
@@ -198,7 +198,7 @@
             position: { x: -12, y: 1.5, z: -44 },
             moved: false,
             mixer: null,
-            animationPath: '/public/reindeer.glb',
+            animationPath: './public/reindeer.glb',
             scale: 0.22,
             url: 'http://localhost:8080/extra'
         }};
@@ -207,7 +207,7 @@
         const gltfLoader = new THREE.GLTFLoader();
         const gltfModel = document.querySelector('#gltfModel');
 
-        gltfLoader.load('./public/app.glb', function(gltf) {
+        gltfLoader.load('./PUBLIC/app.glb', function(gltf) {
             gltf.scene.scale.set(10, 10, 10);
             gltf.scene.position.set(0, 0, 0);
             gltfModel.object3D.add(gltf.scene);
