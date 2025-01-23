@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const backgroundSound = new Audio('/public/sounds/city.mp3');
+    const backgroundSound = new Audio('./public/sounds/city.mp3');
          backgroundSound.loop = true; // enables looping
          backgroundSound.volume = 0; // starts with volume at 0 (meant to increase)
 

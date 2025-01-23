@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const walkSound = new Audio('/public/sounds/concrete-footsteps-6752.mp3');
+    const walkSound = new Audio('./public/sounds/concrete-footsteps-6752.mp3');
 
     let isPlaying = false;
     let keyHoldDuration = 0;

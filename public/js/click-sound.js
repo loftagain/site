@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const clickSound = new Audio('/public/sounds/mouse-click-sound-233951.mp3');
+    const clickSound = new Audio('./public/sounds/mouse-click-sound-233951.mp3');
     clickSound.volume = 0.2;
 
     // function to play the click sound
