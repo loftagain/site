@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User List</title>
+    <link rel="stylesheet" href="/public/css/login.css">
+    <script src="/public/js/navbar.js" defer></script>
+    <style>
+        h1, h2, form {
+        text-align:center;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        .popup { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                 padding: 20px; background: rgba(255, 255, 255, 0.8); border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        .popup h2 { margin-top: 0; }
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                   background: rgba(0, 0, 0, 0.5); }
+        .button { padding: 5px 10px; margin: 2px; cursor: pointer; }
+    </style>
+</head>
+<body onload="restoreScrollPosition()">
+<div class="container">
+<h1>User List</h1>
+
+<!-- User Table -->
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nickname</th>
+        <th>Email</th>
+        <th>Suspended</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="userData : ${users}">
+        <td th:text="${userData.user.id}"></td>
+        <td th:text="${userData.user.nickname}"></td>
+        <td th:text="${userData.user.email}"></td>
+        <td th:text="${userData.suspended ? 'Yes' : 'No'}"></td>
+        <td>
+            <!-- Suspend Button -->
+            <button class="button suspend-btn" th:if="${!userData.suspended}"
+                    th:onclick="'showSuspendPopup(' + ${userData.user.id} + ')'">Suspend</button>
+
+            <!-- Allow Button -->
+            <button class="button allow-btn" th:if="${userData.suspended}"
+                    th:onclick="'allowUser(' + ${userData.user.id} + ')'">Allow</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Overlay and Popup for Suspension Reason -->
+<div class="overlay" id="overlay"></div>
+<div class="popup" id="suspendPopup">
+    <h2>Suspend User</h2>
+    <form id="suspendForm">
+        <input type="hidden" id="suspendUserId">
+        <label for="reason">Reason for Suspension:</label><br>
+        <textarea id="reason" name="reason" rows="4" cols="30" required></textarea><br><br>
+        <button type="button" onclick="submitSuspend()">Submit</button>
+        <br>
+        <button type="button" onclick="closeSuspendPopup()">Cancel</button>
+    </form>
+</div>
+</div>
+<div id="navbar-container"></div>
+<script>
+    // Save and restore scroll position
+    function saveScrollPosition() {
+        localStorage.setItem("scrollPosition", window.scrollY);
+    }
+
+    function restoreScrollPosition() {
+        const scrollPosition = localStorage.getItem("scrollPosition");
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition));
+            localStorage.removeItem("scrollPosition");
+        }
+    }
+
+    // Show suspend popup with reason field check
+    function showSuspendPopup(userId) {
+        document.getElementById("suspendUserId").value = userId;
+        document.getElementById("overlay").style.display = 'block';
+        document.getElementById("suspendPopup").style.display = 'block';
+    }
+
+    function closeSuspendPopup() {
+        document.getElementById("overlay").style.display = 'none';
+        document.getElementById("suspendPopup").style.display = 'none';
+    }
+
+    function submitSuspend() {
+        const userId = document.getElementById("suspendUserId").value;
+        const reason = document.getElementById("reason").value;
+
+        if (!reason) {
+            alert("Please provide a reason for suspension.");
+            return;
+        }
+
+        fetch('/admin/suspend', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ userId: userId, reason: reason })
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            saveScrollPosition(); // Save scroll position before page reload
+            location.reload(); // Reload page to show updated suspension status
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function allowUser(userId) {
+        fetch('/admin/allow', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ userId: userId })
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            saveScrollPosition(); // Save scroll position before page reload
+            location.reload(); // Reload page to show updated suspension status
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+       body {
+           font-family: Arial, sans-serif;
+           background: url('/public/images/noon.jpg') repeat center center fixed;
+           background-size: cover;
+           margin: 0;
+           padding: 0;
+       }
+
+       .container {
+           width: 45%;
+           margin: 40px auto;
+           padding: 30px;
+           background: rgba(255, 255, 255, 0.8);
+           border-radius: 8px;
+           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+           box-sizing: border-box;
+            text-align: center;
+       }
+
+       h2 {
+
+           font-size: 2em;
+           margin-bottom: 20px;
+       }

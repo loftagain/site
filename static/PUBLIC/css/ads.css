@@ -1,0 +1,102 @@
+    body {
+        font-family: Arial, sans-serif;
+        background: url('/public/images/noon.jpg') repeat center center fixed;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav-bar {
+        width: 100%;
+        margin: 20px auto;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 0px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-bar form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .nav-bar input,
+    .nav-bar select,
+    .nav-bar button {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 90%;
+        margin: 20px auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+    .ad-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        width: 48%;
+        margin-bottom: 20px;
+        padding: 30px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .ad-image {
+
+        border-radius: 8px;
+        margin-bottom: 10px;
+      width: 100%;
+      height: 100%;
+      max-height:500px;
+      object-fit: cover;
+      object-position: center;
+      aspect-ratio: 1 / 1;
+}
+
+    .ad-content h5 {
+        font-size: 1.5em;
+        margin-bottom: 10px;
+    }
+
+    .ad-content p {
+        font-size: 1em;
+        line-height: 1.5;
+        margin-bottom: 10px;
+    }
+
+    .ad-content .read-more {
+        color: #007bff;
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .ad-content .read-more:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            width: 100%;
+            padding: 10px;
+        }
+
+        .ad-container {
+            width: 100%;
+        }
+    }

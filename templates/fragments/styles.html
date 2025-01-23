@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="styles">
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+<!--            background: url('/images/letters.gif') no-repeat center center fixed;-->
+<!--        background-size: cover;-->
+        margin: 0;
+        padding: 20;
+         background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+             border-radius: 8px;
+
+    }
+
+    .container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.8); /* Semi-transparent background for readability */
+        border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            width: 100%;
+            padding: 10px;
+        }
+    }
+    </style>
+</head>
+</html>

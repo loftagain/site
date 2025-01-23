@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<script src="/public/js/apply-sound.js"></script>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/addetails.css">
+
+</head>
+<body>
+
+<div class="container mt-5">
+    <button onclick="window.history.back()" class="btn btn-link">← Back</button>
+
+    <div class="ad-details">
+        <img th:src="@{/uploads/{filename}(filename=${ad.photoPath})}" alt="Ad Image" class="ad-image" th:if="${ad.photoPath != null}">
+
+        <div class="ad-content">
+            <h2><b th:text="${ad.title}">Ad Title</b></h2>
+            <p th:text="${ad.description}">Ad Description</p>
+            <p><b th:if="${ad.price != null}" th:text="'Price: $' + ${ad.price}">Price: $</b></p>
+            <p><b th:if="${ad.amount != null}" th:text="'Amount: ' + ${ad.amount}">Amount: </b></p>
+            <p>Posted by: <span th:text="${ad.user.nickname}">User Nickname</span></p>
+            <button id="applyBtn" class="btn btn-primary mt-3">Apply</button>
+        </div>
+        <p th:if="${message}" th:text="${message}"></p>
+    </div>
+</div>
+
+<div id="applyModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="document.getElementById('applyModal').style.display='none'">&times;</span>
+        <form id="applyMessageForm">
+            <textarea name="messageText" id="messageText">I am interested in booking your services, please reach out!</textarea>
+            <input type="hidden" name="recipientId" id="recipientId" th:value="${ad.user.id}">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById('applyBtn').onclick = function () {
+        document.getElementById('applyModal').style.display = 'block';
+    };
+
+    document.getElementById("applyMessageForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const messageText = document.getElementById("messageText").value;
+        const recipientId = document.getElementById("recipientId").value;
+
+        if (!messageText.trim()) {
+            alert("Message cannot be empty.");
+            return;
+        }
+
+        fetch('/messages/sendMessage', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ messageText, recipientId })
+        })
+        .then(response => response.ok ? response.json() : Promise.reject('Error'))
+        .then(() => {
+            alert("Message sent successfully!");
+            document.getElementById('applyModal').style.display = 'none';
+        })
+        .catch(error => {
+            console.error("User unauthorized to send a message.", error);
+            alert("Make sure you are logged in!\n\nIf still seeing this, author is suspended and your message is queued.");
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+
+        #marble-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .content {
+            padding: 20px;
+            height: 200vh;
+            position: relative;
+            z-index: 1; /* ensure content scrolls beneath the marble container */
+        }
+
+        .glowing {
+            animation: glow 1s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.7);
+            }
+            to {
+                box-shadow: 0 0 30px 20px rgba(255, 255, 255, 1);
+            }
+        }
+
+        .news-link {
+            position: absolute;
+            display: none;
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+        }

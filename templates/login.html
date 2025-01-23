@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/public/css/login.css">
+    <link rel="stylesheet" href="/public/css/marbles.css">
+    <script src="/public/js/marbles.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+
+    <title>Login</title>
+</head>
+<body>
+
+<div class="container">
+    <h2>Login</h2>
+
+    <div th:if="${param.error}" class="error">
+        Invalid nickname/email or password.
+    </div>
+
+    <div th:if="${param.logout}" class="message">
+        You have been logged out successfully.
+    </div>
+    <br>
+    <form th:action="@{/login}" method="post">
+
+        <div class="form-group">
+            <label for="username">Nickname or Email:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="additional-links">
+        <a th:href="@{/register}">Register</a>
+<!--        <a th:href="@{/forgot-password}">Forgot Password?</a>-->
+    </div>
+</div>
+<div id="marble-container"></div>
+<div class="content"></div>
+
+</body>
+</html>

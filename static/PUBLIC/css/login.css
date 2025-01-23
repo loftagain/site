@@ -1,0 +1,92 @@
+       body {
+           font-family: Arial, sans-serif;
+           background: url('/public/images/noon.jpg') repeat center center fixed;
+           background-size: cover;
+           margin: 0;
+           padding: 0;
+       }
+
+       .container {
+           width: 45%;
+           margin: 40px auto;
+           padding: 30px;
+           background: rgba(255, 255, 255, 0.8);
+           border-radius: 8px;
+           box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+           box-sizing: border-box;
+       }
+
+       h2 {
+       text-align: center;
+           font-size: 2em;
+           margin-bottom: 20px;
+       }
+
+       label {
+           font-size: 1.1em;
+           margin-bottom: 5px;
+           display: block;
+       }
+
+       input {
+           width: 100%;
+           padding: 10px;
+           margin-bottom: 15px;
+           border-radius: 5px;
+           border: 1px solid #ccc;
+           font-size: 1em;
+       }
+
+       input:focus {
+           border-color: #007bff;
+           outline: none;
+       }
+
+       .error, .message {
+
+           color: red;
+           margin-top: 5px;
+
+            display: block;
+                      margin-left: auto;
+                      margin-right: auto;
+       }
+
+       .valid {
+           color: green;
+           font-size: 0.9em;
+           display: block;
+           margin-top: 5px;
+       }
+
+       .invalid {
+                  color: red;
+                  font-size: 0.9em;
+                  display: block;
+                  margin-top: 5px;
+              }
+
+       button {
+          display: block;
+           margin-left: auto;
+           margin-right: auto;
+
+           background-color: #007bff;
+           border: none;
+           padding: 12px 20px;
+           border-radius: 5px;
+           color: white;
+           cursor: pointer;
+           font-size: 1.1em;
+       }
+
+       button:hover {
+           background-color: #0056b3;
+       }
+
+       #responseMessage {
+       color: red;
+           font-size: 1.2em;
+           margin-top: 20px;
+           text-align: center;
+       }

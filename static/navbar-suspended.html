@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Navbar</title>
+    <link rel="stylesheet" href="/public/css/navbar.css">
+    <style>
+        .embedded-iframe-container {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 80%;
+          height: 80%;
+          background: rgba(255, 255, 255, 0.9);
+          border: 1px solid #ccc;
+          text-align: center;
+          z-index: 110;
+           display: flex;
+    flex-direction: column; /* stack elements vertically */
+    justify-content: space-between; /*push h2 to bottom*/
+      }
+.reason{
+  margin: 0;
+  position: relative;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+      h2 {font-size: 16 pt; color: black;}
+        span{font-style: italic; font-size: 16pt;}
+        h3 {font-size: 11pt; color:grey; margin-top:auto;}
+    </style>
+</head>
+<body>
+<div class="profile-icon">
+    <a href="/">
+        <img src="/public/images/default.jpg" alt="Profile Picture">
+    </a>
+</div>
+
+
+<!-- Horizontal Branch -->
+<!--<div class="navbar-top">-->
+<!--    <ul class="navbar-nav">-->
+<!--        <h1 id="nav">Welcome back!</h1>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<!-- Vertical Branch -->
+<div class="navbar-side">
+    <ul class="navbar-nav">
+        <li><a href="/myads">My Ads</a></li>
+        <br>
+        <li><a href="/logout">Logout</a></li>
+        <br>
+        <!-- Additional role-based links -->
+    </ul>
+</div>
+<div class="embedded-iframe-container">
+    <div class="reason">
+        <h2>This account has been suspended due to the following reason: </h2>
+        <span id="suspension-reason"></span>
+        <br></br>
+    </div>
+    <h3>Contact us at sos@puppyrental.com if you believe this is an honest mistake.</h3>
+</div>
+
+<!--script here will be moved to front.html as it cannot execute js within js-->
+<!--update: front.html does not work well with it-->
+<!--now it is in navbar.js which fetches it first-->
+</body>
+</html>

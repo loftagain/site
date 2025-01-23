@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--    likely unused, linked to first version-->
+    <title>Admin Dashboard</title>
+    <style>
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table th, .admin-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        .admin-table th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        .admin-table td select {
+            width: 100%;
+        }
+
+        .admin-table td button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .admin-table td button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Admin Dashboard</h1>
+<table class="admin-table">
+    <thead>
+    <tr>
+        <th>Nickname</th>
+        <th>Email</th>
+        <th>Description</th>
+        <th>Current Role</th>
+        <th>Update Role</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.nickname}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.description}"></td>
+        <td>
+            <ul>
+                <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
+            </ul>
+        </td>
+        <td>
+            <form th:action="@{/admin/updateRole}" method="post">
+                <input type="hidden" name="userId" th:value="${user.id}">
+                <select name="roleName">
+                    <option th:each="role : ${roles}" th:value="${role.name}" th:text="${role.name}"></option>
+                </select>
+                <button type="submit">Update Role</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

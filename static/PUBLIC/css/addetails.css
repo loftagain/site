@@ -1,0 +1,148 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url('/public/images/noon.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+.ad-details {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 20px;
+    align-items: center; /* Center align ad details vertically */
+    flex: 1; /* Take equal space */
+    object-fit: cover; /* Keep image proportionate */
+    border-radius: 8px;
+}
+ .ad-image {width: 50%;
+  height: 50%;
+    border-radius: 8px;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: 1 / 1;}
+
+.ad-content {
+    flex: 1; /* Take equal space */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+        text-align: center;
+}
+
+
+.ad-content h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.ad-content p {
+    font-size: 1em;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+display:block;
+ margin-left: auto;
+           margin-right: auto;
+align-self: flex-start;
+    width: auto;
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content textarea {
+    width: 100%;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 1em;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #0056b3;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 0px; /* Adjust the distance from the top */
+    right: 0px; /* Adjust the distance from the right */
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .ad-details {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+    }
+
+    .ad-details .ad-image {
+        max-width: 80%; /* Shrink image size */
+        max-height: 150px;
+    }
+
+    .ad-content {
+        flex: 1 1 100%; /* Full width for content */
+    }
+}

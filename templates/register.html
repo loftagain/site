@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/login.css">
+    <link rel="stylesheet" href="/public/css/marbles.css">
+    <script src="/public/js/marbles.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+<h2>Register</h2>
+<form id="registrationForm">
+    <label for="nickname">Nickname: </label>  <span id="nicknameError" class="error"></span>
+    <span id="nicknameStatus"></span>
+    <input type="text" id="nickname" name="nickname" required minlength="3" maxlength="50">
+
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required minlength="10" maxlength="15">
+    <span id="phoneNumberError" class="error"></span>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <span id="emailError" class="error"></span>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required minlength="8">
+    <span id="passwordError" class="error"></span>
+
+    <button type="submit">Register</button>
+</form>
+
+<p id="responseMessage"></p>
+</div>
+<!--a lot of extra logic to make sure username checking is displayed in real-time, fields are valid etc.-->
+<script>
+    document.getElementById("registrationForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        // Clear previous error messages
+        document.querySelectorAll('.error').forEach(error => error.innerText = '');
+        document.getElementById("nicknameStatus").innerText = ''; // Clear nickname status
+
+        // Validate fields
+        const nickname = document.getElementById("nickname").value;
+        const phoneNumber = document.getElementById("phoneNumber").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const errors = {};
+        if (nickname.length < 3 || nickname.length > 50) {
+            errors.nickname = "Nickname must be between 3 and 50 characters.";
+        }
+        if (phoneNumber.length < 10 || phoneNumber.length > 15) {
+            errors.phoneNumber = "Phone number must be between 10 and 15 characters.";
+        }
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            errors.email = "Email should be valid.";
+        }
+        if (password.length < 8) {
+            errors.password = "Password must be at least 8 characters long.";
+        }
+
+        // Display error messages if there are any
+        for (const [field, message] of Object.entries(errors)) {
+            document.getElementById(`${field}Error`).innerText = message;
+        }
+
+        // If there are no errors, submit the form
+        if (Object.keys(errors).length === 0) {
+            const formData = {
+                nickname,
+                phoneNumber,
+                email,
+                password
+            };
+
+            fetch("/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("responseMessage").innerText = data;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("responseMessage").innerText = "Registration failed. Please try again.";
+            });
+        }
+    });
+
+    // Nickname availability check
+    document.getElementById("nickname").addEventListener("input", function () {
+        const nickname = this.value;
+        const nicknameStatus = document.getElementById("nicknameStatus");
+        nicknameStatus.innerText = ''; // Clear previous status
+
+        if (nickname.length < 3) {
+            nicknameStatus.innerText = ''; // Do not check if too short
+            return;
+        }
+
+        fetch(`/check-nickname?nickname=${nickname}`)
+            .then(response => response.json())
+            .then(isAvailable => {
+                if (isAvailable) {
+                    nicknameStatus.innerText = '✓ Available'; // Show green tick
+                    nicknameStatus.className = 'valid'; // Add valid class
+                } else {
+                    nicknameStatus.innerText = '✗ Taken'; // Show red cross
+                    nicknameStatus.className = 'invalid'; // Add invalid class
+                }
+            })
+            .catch(error => {
+                console.error("Error checking nickname:", error);
+            });
+    });
+
+    // Real-time validation for phone number
+document.getElementById("phoneNumber").addEventListener("blur", function () {
+    const phoneNumber = this.value;
+    const phoneNumberError = document.getElementById("phoneNumberError");
+
+    // Regex to validate the phone number
+    const phoneNumberRegex = /^[+]?[\d]{10,15}$/;
+
+    if (phoneNumber.length < 10 || phoneNumber.length > 15) {
+        phoneNumberError.innerText = "Phone number must be between 10 and 15 characters.";
+    } else if (!phoneNumberRegex.test(phoneNumber)) {
+        phoneNumberError.innerText = "Phone number must start with a number or '+' and contain only digits.";
+    } else {
+        phoneNumberError.innerText = ""; // Clear error if valid
+    }
+});
+
+
+    // Real-time validation for email
+    document.getElementById("email").addEventListener("blur", function () {
+        const email = this.value;
+        const emailError = document.getElementById("emailError");
+
+        const emailPattern = /\S+@\S+\.\S+/;
+        if (!emailPattern.test(email)) {
+            emailError.innerText = "Email should be valid.";
+        } else {
+            emailError.innerText = ""; // Clear error if valid
+        }
+    });
+
+    // Real-time validation for password
+    document.getElementById("password").addEventListener("blur", function () {
+        const password = this.value;
+        const passwordError = document.getElementById("passwordError");
+
+        if (password.length < 8) {
+            passwordError.innerText = "Password must be at least 8 characters long.";
+        } else {
+            passwordError.innerText = ""; // Clear error if valid
+        }
+    });
+</script>
+<div id="marble-container"></div>
+<div class="content"></div>
+
+</body>
+</html>

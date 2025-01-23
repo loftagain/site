@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:fragment="title">News</title>
+    <style>
+        .title img {
+            display: block;
+            margin: 0 auto;
+            max-width: 22%;
+            height: auto;
+        }
+
+        .article-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+        }
+
+        .article {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 48%;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .article img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .article h2 {
+            font-size: 1.5em;
+            margin: 0 0 10px;
+        }
+
+        .article p {
+            font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .article a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .article a:hover {
+            text-decoration: underline;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/public/images/noon.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .article-container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .article {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div th:fragment="content">
+    <div class="title">
+        <img src="/public/images/breakingnews.png" alt="Breaking News">
+    </div>
+    <div class="article-container">
+        <div th:each="article : ${articles}" class="article">
+            <h2>
+                <a th:text="${article.title}" th:href="${article.link}" target="_blank"></a>
+            </h2>
+            <img th:if="${article.imageUrl != null}" th:src="${article.imageUrl}" alt="Image not available"/>
+            <p th:text="${article.summary}"></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
