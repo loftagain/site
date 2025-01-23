@@ -207,7 +207,7 @@
         const gltfLoader = new THREE.GLTFLoader();
         const gltfModel = document.querySelector('#gltfModel');
 
-        gltfLoader.load('/public/app.glb', function(gltf) {
+        gltfLoader.load('public/app.glb', function(gltf) {
             gltf.scene.scale.set(10, 10, 10);
             gltf.scene.position.set(0, 0, 0);
             gltfModel.object3D.add(gltf.scene);
